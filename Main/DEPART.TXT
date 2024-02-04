@@ -1,0 +1,5 @@
+
+	 1001 	 Services 	 RahulVerma 	 Manager 	 1400
+	 1002 	 Management 	 Jaspreet 	 CareTaker 	 1250
+	 1003 	 Cleaning 	 Karan 	 Manager 	 1500
+	 1004 	 Anirudh 	 Varun 	 Manager 	 200

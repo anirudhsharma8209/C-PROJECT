@@ -1,0 +1,6 @@
+
+ 101 	 Vishal 	 1001 	 M 	 1400
+ 102 	 Heema 	 1001 	 F 	 1400
+ 103 	 Vanshikha 	 1002 	 F 	 1250
+ 104 	 VarunSir 	 1002 	 M 	 1250
+ 105 	 Vishal 	 1004 	 M 	 200

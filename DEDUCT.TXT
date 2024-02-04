@@ -1,0 +1,4 @@
+
+	 1001 		 Rent 		 5 		 Vishal
+	 1002 		 Loan 		 5 		 Jaspreet
+	 1003 		 Loan 		 8 		 Kuldeep

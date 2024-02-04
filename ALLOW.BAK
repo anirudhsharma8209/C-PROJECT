@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<conio.h>
+int AllowId();
+void AppliedEmp(struct Allowance *A1, struct Department *D1);
+int ScaningAllow(struct Allowance *A1, struct Department *D1);
+typedef struct Allowance{
+	int AllNum;
+	char AllName[20];
+	int AllPer;
+	char AllDeprt[20];
+} Allowance;
+int ScaningAllow(Allowance *A1, Department *D1){
+	char Temp[20];
+	int TotalAllow, i;
+	FILE *FP1 = NULL;		
+	int Choice, T = 0, Access = 0, IdGrant = 0;
+	FILE *FP = NULL;
+	FILE *Check = NULL;
+	system("cls");
+    printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+	printf("\n\t ---: P R O V I D E - A L L O W A N C E - D E T A I L S :--- ");
+	printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+	printf("\n\t\t Enter Total Allowance To Insert At a Time : ");
+	scanf("%d",&TotalAllow);
+	A1 = (Allowance *)calloc(sizeof(Allowance), TotalAllow);
+	FP1 = fopen("Allow.txt","a");	
+	for(i = 0; i < TotalAllow; i++){
+		fflush(stdin);	
+		printf("\n\t\t Department Allowance Number/ Identy  : --> ");
+		A1->AllNum = AllowId() + 1;	
+		printf("%d",A1->AllNum);
+		fflush(stdin);
+		Renter:
+		printf("\n\n\t\t Enter Allowance Name : --> ");	
+		fflush(stdin);
+		gets(A1->AllName);			
+		fflush(stdin);
+		printf("\n\t\t Enter Allowance Percentage : --> ");
+		scanf("%d",&A1->AllPer);
+		fflush(stdin);		
+		printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+		printf("\n ---: S E L E C T - D E P A R T M E N T - I D - F O R - A L L O W A N C E :--- ");
+		printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   W		
+		printf("\n\t\t Did \t\t DName \t\t\t DHead \n");
+		printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+		FP = fopen("Depart.txt","r");
+		while(!feof(FP)){
+			fscanf(FP,"%d %s %s %s %d",&D1->DepartNum,D1->DepartName, D1->DepartHead, D1->P1.PostName, &D1->P1.PostSalary);		
+			printf("\t\t %d \t\t %s \t\t %s\n",D1->DepartNum, D1->DepartName, D1->DepartHead);
+		}
+		fclose(FP);
+		printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+		Idreturn:
+		printf("\n\t\t Select Post Number/ Identy : --> "); // This Department Employee have this Allowance
+		scanf("%d",&Choice);
+		Check = fopen("Depart.txt","r");
+		while(!feof(Check)){
+			fscanf(Check,"%d %s %s %s %d",&D1->DepartNum,D1->DepartName, D1->DepartHead, D1->P1.PostName, &D1->P1.PostSalary);
+			if(Choice == D1->DepartNum){						
+				IdGrant = 1; break;
+			}
+			else{			
+				IdGrant = 2; 
+			}
+		}
+		if(IdGrant == 1){
+			D1->DepartNum = Choice;
+		}
+		else if(IdGrant == 2){
+			printf("\n\t\t There is No Id Here...!!! \n"); goto Idreturn;
+		}
+		else{
+			printf("\n\t\t There is No Id Here...!!! \n"); goto Idreturn;
+		}
+		fclose(Check);
+		fflush(stdin);
+		printf("\n\t\t Allowance Alloted To : --> ");
+		FP = fopen("Depart.txt","r");
+		while(!feof(FP)){
+			fscanf(FP,"%d %s %s %s %d",&D1->DepartNum,D1->DepartName, D1->DepartHead, D1->P1.PostName, &D1->P1.PostSalary);		
+			if(Choice == D1->DepartNum){			
+				strcpy(A1->AllDeprt, D1->DepartName);			
+			}
+		}
+		printf("%s",A1->AllDeprt);	
+		fclose(FP);	
+		printf("\n\n\t\t ---: P R O C E S S - C O M P L E T E D :--- \n");		
+		fprintf(FP1, "\n\t %d \t\t %s \t\t %d \t\t %s",A1->AllNum, A1->AllName, A1->AllPer, A1->AllDeprt);	
+		printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+		printf("\n\t\t Note :- --> Press Any Key To Main Menu <-- \n");
+		fclose(FP1);
+	}
+}
+void ListAllow(Allowance *A1){
+    char Des, Access, Temp;
+    FILE *FP = NULL;
+	system("cls");
+    printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+    printf("\n\t\t ---: A L L O W R A N C E  - T Y P E S :--- \n");
+	printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+    printf("\n\t Id \t\t Name \t\t Percentage \t Department ");
+    printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+    FP = fopen("Allow.txt","r");
+    while(!feof(FP)){
+        Temp = getc(FP);
+		printf("%c",Temp);
+    }		
+    fclose(FP);	 
+    printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");   
+	printf("\n\t\t Note :- --> Press Any Key To Main Menu <-- \n");
+}
+void AllowanceApplied(Allowance *A1, Employee *E1, Department *D1){	
+	FILE *FP1 = NULL;
+	FILE *FP2 = NULL;
+	FILE *FP3 = NULL;
+	char TempAllow[20], TempDepart[20];
+	system("cls");
+	printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");
+	printf("\n\t   ---: A L L O W A N C E S - T O - D E P A R T M E N T (S) :---\n");
+	printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");
+	printf("\n\t AIdenty \t DepartmentName \t Percentage \t Allowance \n");
+	printf("\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * \n");
+	FP1 = fopen("Emloyee.txt","r");
+	FP2 = fopen("Depart.txt","r");	
+	FP3 = fopen("Allow.txt","r");
+	while(!feof(FP3)){					
+		fscanf(FP3, "%d %s %d %s", &A1->AllNum, A1->AllName, &A1->AllPer, A1->AllDeprt);		
+		strcpy(TempAllow, A1->AllName);		
+		fscanf(FP2,"%d %s %s %s %d",&D1->DepartNum, D1->DepartName, D1->DepartHead, D1->P1.PostName, &D1->P1.PostSalary);		
+		strcpy(TempDepart, D1->DepartName);
+		printf("\n %s Alloted To : --> %s Department",TempAllow, TempDepart);	
+		// if(strcmp(TempAllow, D1->DepartName) == 0){			
+		// 	printf("\n Entered...!!!");
+		// 	// printf("\n -> %s",TempDepart);
+		// 	// printf("\n\t %s Alloted To %s",TempAllow, TempDepart);			
+		// }
+	}
+	fclose(FP1);
+	fclose(FP2);
+	fclose(FP3);
+} 
+// Final Result is That 
+// EId : 101		EName : Anirudh 
+// DId : 1001		DName : Service
+// Basic Salary : --> 1250
+// Allowances : -->  Dname According to Allowance Percentage -- Single Department
+// Deductions : --> All Deduction Alloted to Particular Employee -- ALl Thing in Deductions
+// Total of Employee : --> 
+int AllowId(){  
+    int Count = 1000;
+    char Temp;
+    FILE *FP = NULL;
+    FP = fopen("Allow.txt","r");
+    while(!feof(FP)){
+        Temp = getc(FP);
+        if(Temp == '\n')
+        	Count++;
+    }
+    return Count;
+    fclose(FP);
+}

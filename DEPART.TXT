@@ -1,0 +1,6 @@
+
+	 1001 	 Services 	 Anirudh 	 Manager 	 1300
+	 1002 	 Management 	 Rahul 	 Manager 	 1400
+	 1003 	 Cleaning 	 Jaspreet 	 Head Cleaner 	 12000
+	 1004 	 Management 	 Dhruv 	 Cleaner 	 1200
+	 1005 	 Shopping 	 Anirudh 	 Purchaese 	 3400
